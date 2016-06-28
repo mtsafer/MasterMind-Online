@@ -3,6 +3,8 @@
 <head>
 	<title>Mastermind</title>
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="<%= url("/style.css")%>">
 </head>
 <body>
@@ -63,6 +65,10 @@
 			</form>
 			<a href="/reset" class="btn btn-primary">Reset</a>
 			<h4><%=game.turns_left%> turns left</h4>
+			<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#help">Instructions</button>
+		  <div id="help" class="collapse">
+		    The computer has selected a secret combination of colors. Your job is to guess the combination within the given number of turns. Repeated colors are allowed and order counts. When you press submit, your guess will be recorded and you will be given feedback on your guess. A <img src="green_check.png" class="check">  indicates that you have a color in the correct position, a <img src="red_check.png" class ="check">  indicates that you have matched a color, but it is not in the correct spot. No feedback will be given for completely incorrect guesses, and only one check will be given per color.<br>For example, given a secret of 4 reds, if you were to guess 1 red and 3 blues, you would only see 1 green check.
+		  </div>
 		</div>
 	</div>
 </body>
