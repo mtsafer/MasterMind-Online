@@ -2,56 +2,63 @@ require 'sinatra'
 require 'sinatra/reloader' if development?
 require_relative './MasterMind' 
 
-game = MasterMind.new
-guess_view = []
-feedback_view = []
-guesses = []
+use Rack::Session::Pool, :expire_after => 2592000
+
+#game = MasterMind.new
+#guess_view = []
+#feedback_view = []
+#guesses = []
 
 get "/" do
-	if params["Guess!"] == "Submit" && !game.has_ended(guesses)
+	session[:game] = MasterMind.new
+	session[:guess_view] = []
+	session[:feedback_view] = []
+	session[:message] = ""
+	redirect to "/play"
+end
+
+get "/play" do
+	if params["Guess!"] == "Submit"
 		guess1 = params["spot-1"][0]
 		guess2 = params["spot-2"][0]
 		guess3 = params["spot-3"][0]
 		guess4 = params["spot-4"][0]
 		guesses = [guess1, guess2, guess3, guess4]
-		game.take_turn(guesses)
-		feedback = game.feed_back
-		guess_view << [ find_img(guess1), find_img(guess2),
-									find_img(guess3), find_img(guess4) ]
-		feedback_view << select_feedback(feedback)
-	end
-		message = game.has_ended(guesses) if game.has_ended(guesses)
-		message ||= ""
-	erb :index, locals: { game: game, message: message, guess_view: guess_view,
-												guesses: guesses, feedback_view: feedback_view }
-end
-
-get "/reset" do
-	game = MasterMind.new
-	guess_view = []
-	feedback_view = []
-	guesses = []
-	redirect to "/"
-end
-
-def select_feedback feedback
-	result = []
-	feedback.each do |f|
-		case f
-		when "X" then result << 'green_check.png'
-		when "O" then result << 'red_check.png'
+		unless session[:game].has_ended(guesses)
+			session[:game].take_turn(guesses)
+			feedback = session[:game].feed_back
+			session[:guess_view] << [ find_img(guess1), find_img(guess2),
+										find_img(guess3), find_img(guess4) ]
+			session[:feedback_view] << select_feedback(feedback)
 		end
 	end
-	result
+	session[:message] = session[:game].has_ended(guesses) if \
+	session[:game].has_ended(guesses)
+	erb :index, locals: { game: session[:game], message: session[:message],
+												guess_view: session[:guess_view],
+												guesses: guesses,
+												feedback_view: session[:feedback_view] }
 end
 
-def find_img letter
-	case letter
-	when 'r' then return 'red.png'
-	when 'g' then return 'green.png'
-	when 'b' then return 'blue.png'
-	when 'y' then return 'yellow.png'
-	when 'm' then return 'maroon.png'
-	when 'c' then return 'cyan.png'
+private
+	def select_feedback feedback
+		result = []
+		feedback.each do |f|
+			case f
+			when "X" then result << 'green_check.png'
+			when "O" then result << 'red_check.png'
+			end
+		end
+		result
 	end
-end
+
+	def find_img letter
+		case letter
+		when 'r' then return 'red.png'
+		when 'g' then return 'green.png'
+		when 'b' then return 'blue.png'
+		when 'y' then return 'yellow.png'
+		when 'm' then return 'maroon.png'
+		when 'c' then return 'cyan.png'
+		end
+	end
