@@ -1,5 +1,4 @@
 require_relative './Row'
-require_relative './FeedBack'
 require 'colorize'
 
 # Available colors: Red Green Yellow Blue Magenta Cyan

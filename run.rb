@@ -1,6 +1,6 @@
 require 'sinatra'
 require 'sinatra/reloader' if development?
-require_relative 'MasterMind' 
+require_relative './MasterMind' 
 
 game = MasterMind.new
 guess_view = []
@@ -38,8 +38,8 @@ def select_feedback feedback
 	result = []
 	feedback.each do |f|
 		case f
-		when "X" then result << 'img/green_check.png'
-		when "O" then result << 'img/red_check.png'
+		when "X" then result << 'green_check.png'
+		when "O" then result << 'red_check.png'
 		end
 	end
 	result
@@ -47,11 +47,11 @@ end
 
 def find_img letter
 	case letter
-	when 'r' then return 'img/red.png'
-	when 'g' then return 'img/green.png'
-	when 'b' then return 'img/blue.png'
-	when 'y' then return 'img/yellow.png'
-	when 'm' then return 'img/maroon.png'
-	when 'c' then return 'img/cyan.png'
+	when 'r' then return 'red.png'
+	when 'g' then return 'green.png'
+	when 'b' then return 'blue.png'
+	when 'y' then return 'yellow.png'
+	when 'm' then return 'maroon.png'
+	when 'c' then return 'cyan.png'
 	end
 end
