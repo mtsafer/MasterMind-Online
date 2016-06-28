@@ -17,33 +17,14 @@ class MasterMind
 		@feed_back = []
 		for i in 1..12
 			@rows << Row.new
-			@feed_backs << FeedBack.new
+			@feed_backs << []
 		end
 		@border = "--------------------------------"
 		@remembered_turns = []
 	end
 
-	def look
-		result = ""
-		result += "\n"
-		result += "(Feedback)--->     (Guess)\n"
-		result += @border + "\n"
-		result += "#{@feed_backs[0].view} ---> #{@rows[0].view}\n"
-		result += @border + "\n"
-		for i in 1...@turn
-			result += "#{@feed_backs[i].view} ---> #{@rows[i].view}\n"
-			result += @border + "\n"
-		end
-		result
-	end
-
 	def turns_left
 		return (12-@turn)
-	end
-
-	def peek
-		@secret.each{ |x| print x[:guess] }
-		puts ""
 	end
 
 	def has_ended(guesses)
@@ -65,18 +46,11 @@ class MasterMind
 
 	def take_turn(guesses)
 		@remembered_turns << guesses
-		#guesses = colorize(guesses)
-		row = @rows[@turn]
-		row.column1 = guesses[0]
-		row.column2 = guesses[1]
-		row.column3 = guesses[2]
-		row.column4 = guesses[3]
 		@feed_backs[@turn] = set_feedback(guesses)
 		@turn += 1
 	end
 
 	def set_feedback(guesses)
-		feed_back = @feed_backs[@turn]
 		feed_back_helper = []
 		guesses.each_with_index do |guess, index|
 			if guess == @secret[index][:guess]
@@ -100,8 +74,6 @@ class MasterMind
 		@secret.each{ |x| x[:looked] = false }
 		@feed_back = feed_back_helper
 		return feed_back_helper
-		#feed_back_helper << ["-","-","-","-"]
-		#feed_back = assign_feedback(feed_back, feed_back_helper.flatten)
 	end
 
 	private
@@ -119,29 +91,5 @@ class MasterMind
 			secret = []
 			4.times{ secret << colors[rand(colors.length)] }
 			secret
-		end
-
-		def assign_feedback(feed_back, feed_back_helper)
-			feed_back.column1 = (feed_back_helper[0])
-			feed_back.column2 = (feed_back_helper[1])
-			feed_back.column3 = (feed_back_helper[2])
-			feed_back.column4 = (feed_back_helper[3])
-			feed_back
-		end
-
-		def colorize(guesses)
-			for i in 0..3
-				case guesses[i]
-				when 'r' then guesses[i] = "X".red
-				when 'g' then guesses[i] = "X".green
-				when 'b' then guesses[i] = "X".blue
-				when 'y' then guesses[i] = "X".yellow
-				when 'm' then guesses[i] = "X".magenta
-				when 'c' then guesses[i] = "X".cyan
-				else
-					puts "The guesses are corrupt"
-				end
-			end
-			guesses
 		end
 end

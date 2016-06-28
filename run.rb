@@ -1,6 +1,6 @@
 require 'sinatra'
 require 'sinatra/reloader' if development?
-require_relative 'play' 
+require_relative 'MasterMind' 
 
 game = MasterMind.new
 guess_view = []
