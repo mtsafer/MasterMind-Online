@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Mastermind</title>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+	<div class="header">
+		<div class="container">
+			<h1>Mastermind</h1>
+		</div>
+	</div>
+	<div class="main">
+		<div class="container">
+			<h2><%=message%></h2>
+			<div class="row">
+				<div class="col-md-5 col-sm-5 col-xs-5">
+					<h4>Feedback</h4>
+				</div>
+				<div class="col-md-1 col-sm-1 col-xs-0">	
+				</div>
+				<div class="col-md-5 col-sm-5 col-xs-7">
+					<h4>Guesses</h4>
+				</div>
+			</div>
+			<% 12.times do |i| %>
+				<div class="row">
+					<div class="col-md-5 col-sm-5 col-xs-5 feedback-col">
+						<div class="feedback">
+							<% if feedback_view[i] %>
+								<%=i+1%><% feedback_view[i].each do |img| %>
+									<img src="<%=img%>" class="check" />
+								<% end %>
+							<% end %>
+						</div>
+					</div>
+					<div class="col-md-1 col-sm-1 col-xs-0">
+					</div>
+					<div class="col-md-5 col-sm-5 col-xs-7">
+						<div class="guess">
+						<% if guess_view[i] %>
+							<% guess_view[i].each do |img| %>
+								<img src="<%=img%>" class="circle" />
+							<% end %><%=i+1%>
+						<% end %>
+						</div>
+					</div>
+				</div>
+			<% end %>
+			<form id="mastermind">
+				<% 4.times do |i|%>
+					<select name="spot-<%= i+1 %>" form="mastermind">
+					  <option value="red">red</option>
+					  <option value="green">green</option>
+					  <option value="blue">blue</option>
+					  <option value="yellow">yellow</option>
+					  <option value="maroon">maroon</option>
+					  <option value="cyan">cyan</option>
+					</select>
+				<% end %>
+				<input type="submit" name="Guess!" class="btn btn-primary">
+			</form>
+			<a href="/reset" class="btn btn-primary">Reset</a>
+			<h4><%=game.turns_left%> turns left</h4>
+		</div>
+	</div>
+</body>
+</html>

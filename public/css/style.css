@@ -1,0 +1,27 @@
+body{
+	text-align: center;
+}
+
+.circle{
+	width: 20px;
+	height: 20px;
+}
+
+.check{
+	width: 20px;
+	height: 20px;
+}
+
+.feedback{
+	text-align: left;
+	margin: auto;
+	width: 115px;
+}
+
+.feedback-col{
+	text-align: center;
+}
+
+.row{
+	text-align: center;
+}
