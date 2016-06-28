@@ -10,6 +10,10 @@ use Rack::Session::Pool, :expire_after => 2592000
 #guesses = []
 
 get "/" do
+redirect to session[:game].nil? ? "/reset" : "/play"
+end
+
+get "/reset" do
 	session[:game] = MasterMind.new
 	session[:guess_view] = []
 	session[:feedback_view] = []
@@ -18,6 +22,7 @@ get "/" do
 end
 
 get "/play" do
+	redirect to "/reset" unless session[:game]
 	if params["Guess!"] == "Submit"
 		guess1 = params["spot-1"][0]
 		guess2 = params["spot-2"][0]
