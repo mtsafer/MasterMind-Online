@@ -2,7 +2,7 @@
 <h2><a href="https://cryptic-caverns-91319.herokuapp.com">Play mastermind here</a></h2>
 <p>Find the rules to Master Mind <a href="https://en.wikipedia.org/wiki/Mastermind_(board_game)">here</a>.</p>
 <p>You can select each of your guesses in the drop down fields. When you are ready to make your guess press the submit button.</p>
-<p>Color choices are: Red, Green, Blue, Yellow, Magenta, Cyan</p>
+<p>Color choices are: Red, Green, Blue, Yellow, Maroon, Cyan</p>
 <p>A correct guess that is also in the correct spot will result in a green check appearing in the feedback panel.</p>
 <p>A correct guess that is in an incorrect spot will result in a red check in the feeback panel.</p>
 <p>The feedback panel order is not representative of the guess order.</p>
