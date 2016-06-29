@@ -1,4 +1,5 @@
 <h1>Master Mind</h1>
+<h2><a href="https://cryptic-caverns-91319.herokuapp.com">Play mastermind here</a></h2>
 <p>Find the rules to Master Mind <a href="https://en.wikipedia.org/wiki/Mastermind_(board_game)">here</a>.</p>
 <p>You can select each of your guesses in the drop down fields. When you are ready to make your guess press the submit button.</p>
 <p>Color choices are: Red, Green, Blue, Yellow, Magenta, Cyan</p>
